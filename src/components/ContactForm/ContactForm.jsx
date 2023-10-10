@@ -1,5 +1,8 @@
-import { validateForm } from 'helpers/validationForm';
+// import { validateForm } from 'helpers/validationForm';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
 import {
   ButtonAddContact,
   FormStyled,
@@ -7,10 +10,13 @@ import {
   Label,
 } from './ContactForm.styled';
 
-export const ContactForm = ({ addContact }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [, setErrors] = useState({});
+  // const [, setErrors] = useState({});
 
   const clearForm = () => {
     setName('');
@@ -34,15 +40,25 @@ export const ContactForm = ({ addContact }) => {
   const handleFormSubmit = evt => {
     evt.preventDefault();
 
-    const validationErrors = validateForm(name, number);
-
-    if (Object.values(validationErrors).every(errors => errors === '')) {
-      addContact({ name, number });
-      clearForm();
-      setErrors({});
-    } else {
-      setErrors({ validationErrors });
+    const formData = { name: name, number: number };
+    // const validationErrors = validateForm(name, number);
+    const haveAllreadyContact = contacts.find(
+      contact => contact.name === formData.name
+    );
+    if (haveAllreadyContact) {
+      return alert(`${formData.name} is already in contacts`);
     }
+    // const newContacts = [...contacts, formData];
+
+    dispatch(addContact(formData));
+    clearForm();
+    // if (Object.values(validationErrors).every(errors => errors === '')) {
+    //   const newContacts = [...contacts, formData];
+
+    //   setErrors({});
+    // } else {
+    //   setErrors({ validationErrors });
+    // }
   };
 
   return (
