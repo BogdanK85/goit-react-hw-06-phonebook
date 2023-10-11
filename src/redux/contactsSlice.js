@@ -28,9 +28,6 @@ const contactsSlice = createSlice({
         };
       },
     },
-    // setFilter: (state, action) => {
-    //   state.filter = action.payload;
-    // },
   },
 });
 

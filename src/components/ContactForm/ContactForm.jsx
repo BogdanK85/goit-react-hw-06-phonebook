@@ -16,7 +16,6 @@ export const ContactForm = () => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const [, setErrors] = useState({});
 
   const clearForm = () => {
     setName('');
@@ -41,24 +40,15 @@ export const ContactForm = () => {
     evt.preventDefault();
 
     const formData = { name: name, number: number };
-    // const validationErrors = validateForm(name, number);
     const haveAllreadyContact = contacts.find(
       contact => contact.name === formData.name
     );
     if (haveAllreadyContact) {
       return alert(`${formData.name} is already in contacts`);
     }
-    // const newContacts = [...contacts, formData];
 
     dispatch(addContact(formData));
     clearForm();
-    // if (Object.values(validationErrors).every(errors => errors === '')) {
-    //   const newContacts = [...contacts, formData];
-
-    //   setErrors({});
-    // } else {
-    //   setErrors({ validationErrors });
-    // }
   };
 
   return (
