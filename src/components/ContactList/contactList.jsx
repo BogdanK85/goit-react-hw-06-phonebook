@@ -1,7 +1,4 @@
 import Contact from 'components/Contact/Contact';
-// import {
-//   ContactItemText,
-// } from 'components/Contact/Contact.styled';
 import { useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
 import { ContactContainer } from './ContactList.styled';
